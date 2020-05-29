@@ -27,10 +27,12 @@ func statGlobal() {
 	}
 
 	err = json.Unmarshal(body, &statsJson)
-
-	fmt.Printf("\nGlobal reports:" +
-		"\n\tCases:          %d" +
-		"\n\tDeaths:         %d" +
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("\nGlobal reports:"+
+		"\n\tCases:          %d"+
+		"\n\tDeaths:         %d"+
 		"\n\tRecoveries:     %d\n\n",
 		statsJson.Global.Confirmed,
 		statsJson.Global.Deaths,
@@ -59,11 +61,11 @@ func stat(country string) {
 		_, _ = fmt.Fprintf(os.Stderr, "An error occured with the country %s\n", country)
 		return
 	}
-	statsCountryJson := statsJson[len(statsJson) - 1]
+	statsCountryJson := statsJson[len(statsJson)-1]
 
-	fmt.Printf("\nReports for %s:" +
-		"\n\tCases:        %d" +
-		"\n\tDeaths:       %d" +
+	fmt.Printf("\nReports for %s:"+
+		"\n\tCases:        %d"+
+		"\n\tDeaths:       %d"+
 		"\n\tRecoveries:   %d\n",
 		statsCountryJson.Country,
 		statsCountryJson.Confirmed,
